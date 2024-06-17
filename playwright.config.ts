@@ -32,15 +32,44 @@ export default defineConfig({
       Authorization : `Token ${process.env.ACCESS_TOKEN}`
     }
   },
+  globalSetup: require.resolve('./global-setup.ts'),
+  globalTeardown: require.resolve('./global-teardown.ts'),
 
   /* Configure projects for major browsers */
   projects: [
-    {name: 'setup' , testMatch: 'auth.setup.ts'},
     {
-      name: 'chromium',
+      name: 'setup' , 
+      testMatch: 'auth.setup.ts'
+    },
+    {
+      name: 'articleSetup',
+      testMatch: 'newArticle.setup.ts',
+      dependencies: ['setup'],
+      teardown: 'articleCleanUp'
+    },
+    {
+      name: 'articleCleanUp',
+      testMatch: 'articleCleanUp.setup.ts'
+
+    },
+    {
+      name: 'regression',
+      testIgnore: 'likesCounter.spec.ts',
       use: { ...devices['Desktop Chrome'], storageState: '.auth/user.json' },
       dependencies: ['setup']
+    },
+    {
+      name: 'likeCounter',
+      testMatch: 'likesCounter.spec.ts',
+      use: { ...devices['Desktop Chrome'], storageState: '.auth/user.json' },
+      dependencies: ['articleSetup']
+    },
+    {
+      name: 'likeCounterGlobal',
+      testMatch: 'likesCounterGlobal.spec.ts',
+      use: { ...devices['Desktop Chrome'], storageState: '.auth/user.json' }
     }
+
 
     // {
     //   name: 'firefox',
@@ -75,7 +104,7 @@ export default defineConfig({
     //   name: 'Google Chrome',
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
-  ],
+  ]
 
   /* Run your local dev server before starting the tests */
   // webServer: {
