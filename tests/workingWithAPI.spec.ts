@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
 import tags from '../test-data/tags.json'
+import { argosScreenshot } from "@argos-ci/playwright";
+
 
 test.beforeEach(async ({ page }) => {
   await page.route('*/**/api/tags', async route => {
@@ -69,9 +71,12 @@ test('create artical', async ({ page, request }) => {
   await page.getByText('Global Feed').click()
 
   await expect(page.locator('app-article-list h1').first()).not.toContainText("This a test title")
+  await argosScreenshot(page, "Create article");
+  
 
   const deleteArticleResponse = await request.delete(`https://conduit-api.bondaracademy.com/api/articles/${slugId}`)
   expect(deleteArticleResponse.status()).toEqual(204)
+  await argosScreenshot(page, "Delete artical");
 
 })
 
