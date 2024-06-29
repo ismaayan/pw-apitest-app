@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, request } from '@playwright/test';
 import tags from '../test-data/tags.json'
 import { argosScreenshot } from "@argos-ci/playwright";
 
@@ -50,6 +50,7 @@ test('delete artical', async ({ page, request }) => {
   await page.getByText('Global Feed').click()
   await page.getByText('This a test title').click()
   await page.getByRole('button', { name: 'Delete Article' }).first().click()
+  await page.getByText('Global Feed').click()
 
   await expect(page.locator('app-article-list h1').first()).not.toContainText('This a test title')
 
@@ -67,7 +68,7 @@ test('create artical', async ({ page, request }) => {
   const slugId = articleResponseBody.article.slug
 
   await expect(page.locator('app-article-page h1')).toContainText("PlayWright is awesome")
-  await page.getByText('Home').click()
+  await page.getByText('Home').first().click()
   await page.getByText('Global Feed').click()
 
   await expect(page.locator('app-article-list h1').first()).not.toContainText("This a test title")

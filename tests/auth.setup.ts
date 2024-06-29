@@ -4,7 +4,7 @@ import fs from 'fs'
 
 const authFile = '.auth/user.json'
 
-setup('authentication', async ({ request }) => {
+setup('authentication', async({ request }) => {
   const response = await request.post('https://conduit-api.bondaracademy.com/api/users/login/', {
     data: {
       "user": { "email": "maayanis@test.com", "password": "1020304050" }

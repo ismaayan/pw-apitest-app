@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, request } from '@playwright/test'
 
 
 test('like counter increase', async ({page}) => {

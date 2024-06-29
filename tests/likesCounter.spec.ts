@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, request } from '@playwright/test'
 
 
 test('like counter increase', async ({page}) => {
@@ -7,7 +7,6 @@ test('like counter increase', async ({page}) => {
     const firstLikeButton = page.locator('app-article-preview').first().locator('button')
 
     await expect(firstLikeButton).toContainText('0')
-    await firstLikeButton.waitFor()
     await firstLikeButton.click()
     await expect(firstLikeButton).toContainText('1')
 

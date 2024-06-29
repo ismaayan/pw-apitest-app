@@ -43,7 +43,7 @@ export default defineConfig({
     trace: 'on-first-retry',
     screenshot: "only-on-failure",
     extraHTTPHeaders: {
-      Authorization : `Token ${process.env.ACCESS_TOKEN}`
+      'Authorization' : `Token ${process.env.ACCESS_TOKEN}`
     }
   },
   globalSetup: require.resolve('./global-setup.ts'),
@@ -68,7 +68,7 @@ export default defineConfig({
     },
     {
       name: 'regression',
-      testIgnore: 'likesCounter.spec.ts',
+      testIgnore: ['likesCounter.spec.ts', 'likesCounterGlobal.spec.ts'],
       use: { ...devices['Desktop Chrome'], storageState: '.auth/user.json' },
       dependencies: ['setup']
     },
