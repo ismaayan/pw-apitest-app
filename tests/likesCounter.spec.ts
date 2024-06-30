@@ -1,4 +1,5 @@
 import { expect, test, request } from '@playwright/test'
+import { argosScreenshot } from "@argos-ci/playwright";
 
 
 test('like counter increase', async ({page}) => {
@@ -9,6 +10,8 @@ test('like counter increase', async ({page}) => {
     await expect(firstLikeButton).toContainText('0')
     await firstLikeButton.click()
     await expect(firstLikeButton).toContainText('1')
+    await argosScreenshot(page, "firstLikeButton");
+
 
 
 
