@@ -9,6 +9,12 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+module.exports = {
+  use: {
+    headless: true, // explicitly setting headless mode
+    // other options
+  },
+}
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
@@ -119,11 +125,8 @@ export default defineConfig({
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
   ]
-
+})
   /* Run your local dev server before starting the tests */
   // webServer: {
   //   command: 'npm run start',
   //   url: 'http://127.0.0.1:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
-});
